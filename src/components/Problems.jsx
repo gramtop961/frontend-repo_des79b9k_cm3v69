@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 export default function Problems() {
   const items = [
     'Máš v hlavě dokonalou komunitu… ale v realitě na to prostě nemáš čas.',
@@ -10,12 +12,27 @@ export default function Problems() {
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">Poznáváš tohle?</h2>
-        <ul className="space-y-4">
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl sm:text-4xl font-bold text-white mb-8"
+        >
+          Poznáváš tohle?
+        </motion.h2>
+        <ul className="grid md:grid-cols-2 gap-4">
           {items.map((text, i) => (
-            <li key={i} className="text-cyan-100/90 text-lg bg-white/5 border border-white/10 rounded-xl p-4">
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              className="text-cyan-100/90 text-lg bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/7 transition-colors"
+            >
               {text}
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>

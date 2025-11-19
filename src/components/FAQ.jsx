@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 export default function FAQ() {
   const faqs = [
     { q: 'Jak rychle to rozběhneme?', a: 'První verzi péče spustíme do 10 pracovních dní. Pak ladíme podle dat.' },
@@ -12,15 +14,31 @@ export default function FAQ() {
   return (
     <section className="py-20">
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">FAQ</h2>
-        <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5">
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl sm:text-4xl font-bold text-white mb-8"
+        >
+          FAQ
+        </motion.h2>
+        <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
           {faqs.map((f, i) => (
             <details key={i} className="group p-6">
               <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
                 {f.q}
                 <span className="ml-4 text-cyan-300 group-open:rotate-45 transition">+</span>
               </summary>
-              <p className="mt-3 text-cyan-100/90">{f.a}</p>
+              <motion.p
+                initial={{ opacity: 0, y: 6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: 0.3 }}
+                className="mt-3 text-cyan-100/90"
+              >
+                {f.a}
+              </motion.p>
             </details>
           ))}
         </div>
