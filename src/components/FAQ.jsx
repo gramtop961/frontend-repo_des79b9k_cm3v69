@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 
 export default function FAQ() {
   const faqs = [
@@ -11,8 +12,11 @@ export default function FAQ() {
     { q: 'Kolik to stojí dohromady?', a: 'Platíte měsíční správu + reálné náklady na dárky/odeslání. Vše je transparentní.' },
     { q: 'Co když nemám velkou komunitu?', a: 'Neřeš. Start balíček je ideální i pro menší projekty — roste s tebou.' },
   ]
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
   return (
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-5xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
@@ -23,24 +27,34 @@ export default function FAQ() {
         >
           FAQ
         </motion.h2>
-        <div className="divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          {faqs.map((f, i) => (
-            <details key={i} className="group p-6">
-              <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
-                {f.q}
-                <span className="ml-4 text-cyan-300 group-open:rotate-45 transition">+</span>
-              </summary>
-              <motion.p
-                initial={{ opacity: 0, y: 6 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 0.3 }}
-                className="mt-3 text-cyan-100/90"
-              >
-                {f.a}
-              </motion.p>
-            </details>
-          ))}
+        <div className="rounded-2xl border border-white/10 overflow-hidden">
+          {faqs.map((f, i) => {
+            const isOpen = openIndex === i
+            return (
+              <div key={i} className={`bg-white/5 ${i !== faqs.length - 1 ? 'border-b border-white/10' : ''}`}>
+                <button
+                  className="w-full text-left p-6 flex items-center justify-between text-white font-semibold"
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                >
+                  {f.q}
+                  <motion.span animate={{ rotate: isOpen ? 45 : 0 }} className="ml-4 text-cyan-300">+</motion.span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="px-6 pb-6"
+                    >
+                      <p className="text-cyan-100/90">{f.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

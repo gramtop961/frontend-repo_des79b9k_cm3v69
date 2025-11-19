@@ -6,10 +6,10 @@ export default function WowMoments() {
   const [open, setOpen] = useState(false)
 
   const base = 'text-cyan-300'
-  const card = 'bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cyan-400/40 transition-colors'
+  const card = 'relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-cyan-400/40 transition-colors overflow-hidden'
 
   return (
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
@@ -36,7 +36,16 @@ export default function WowMoments() {
               transition={{ duration: 0.45, delay: i * 0.05 }}
               className={card}
             >
-              <div className="flex items-start gap-3">
+              {/* holographic shine */}
+              <span className="pointer-events-none absolute inset-0">
+                <motion.span
+                  initial={{ x: '-20%' }}
+                  whileHover={{ x: '120%' }}
+                  transition={{ duration: 0.9 }}
+                  className="absolute top-0 left-0 h-full w-1/3 -skew-x-12 bg-white/10 mix-blend-overlay"
+                />
+              </span>
+              <div className="relative flex items-start gap-3">
                 <Icon className={`h-6 w-6 ${base}`} />
                 <div>
                   <h3 className="text-xl font-semibold text-white">{title}</h3>

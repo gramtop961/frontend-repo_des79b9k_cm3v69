@@ -10,31 +10,35 @@ export default function Problems() {
   ]
 
   return (
-    <section className="py-20">
+    <section className="py-24">
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-4xl font-bold text-white mb-8"
+          className="text-3xl sm:text-4xl font-bold text-white mb-10"
         >
           Poznáváš tohle?
         </motion.h2>
-        <ul className="grid md:grid-cols-2 gap-4">
-          {items.map((text, i) => (
-            <motion.li
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.45, delay: i * 0.05 }}
-              className="text-cyan-100/90 text-lg bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/7 transition-colors"
-            >
-              {text}
-            </motion.li>
-          ))}
-        </ul>
+        <div className="relative">
+          {/* glowing border */}
+          <div className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-r from-cyan-500/10 via-fuchsia-500/10 to-transparent blur-xl" />
+          <ul className="relative grid md:grid-cols-2 gap-5">
+            {items.map((text, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: i * 0.05 }}
+                className="text-cyan-100/90 text-lg bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-cyan-400/40 hover:bg-white/7 transition-colors"
+              >
+                {text}
+              </motion.li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )
